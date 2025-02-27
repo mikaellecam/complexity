@@ -44,7 +44,7 @@ fn sieve_of_eratosthenes(n: usize) -> Vec<usize> {
     primes
 }
 
-fn analyze_complexity(n: usize) -> String {
+/*fn analyze_complexity(n: usize) -> String {
     let complexity = format!(
         "Time Complexity: O(N log log N) where N = {}\n\
          This is because each number is visited approximately log log N times on average.\n\
@@ -56,4 +56,4 @@ fn analyze_complexity(n: usize) -> String {
         n, n
     );
     complexity
-}
+}*/
