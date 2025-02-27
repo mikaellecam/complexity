@@ -2,7 +2,7 @@ use std::time::Duration;
 use std::time::Instant;
 
 pub(crate) fn main() {
-    let disk_numbers: Vec<f64> = vec![1.0, 2.0, 5.0, 10.0, 15.0, 25.0, 50.0];
+    let disk_numbers: Vec<f64> = vec![1.0, 2.0, 5.0, 10.0, 15.0, 25.0];//, 50.0];
 
     let results = hanoi_towers_benchmark(&disk_numbers);
 
