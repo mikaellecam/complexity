@@ -2,6 +2,7 @@ use std::time::Instant;
 use plotters::prelude::*;
 use rand::Rng;
 
+/// Tri par sélection
 fn selection_sort(arr: &mut Vec<i32>) {
     let len = arr.len();
     for i in 0..len {
@@ -15,6 +16,7 @@ fn selection_sort(arr: &mut Vec<i32>) {
     }
 }
 
+/// Tri par insertion
 fn insertion_sort(arr: &mut Vec<i32>) {
     let len = arr.len();
     for i in 1..len {
@@ -28,6 +30,7 @@ fn insertion_sort(arr: &mut Vec<i32>) {
     }
 }
 
+/// Tri à bulles
 fn bubble_sort(arr: &mut Vec<i32>) {
     let len = arr.len();
     for i in 0..len {
@@ -39,6 +42,7 @@ fn bubble_sort(arr: &mut Vec<i32>) {
     }
 }
 
+/// Tri fusion
 fn merge_sort(arr: &mut Vec<i32>) {
     if arr.len() > 1 {
         let mid = arr.len() / 2;
@@ -72,12 +76,14 @@ fn merge_sort(arr: &mut Vec<i32>) {
     }
 }
 
+/// Mesure le temps d'exécution d'un algorithme de tri
 fn measure_time(sort_fn: fn(&mut Vec<i32>), arr: &mut Vec<i32>) -> u128 {
     let start = Instant::now();
     sort_fn(arr);
-    start.elapsed().as_millis()
+    start.elapsed().as_millis() // Valeur retournée (pas de besoin de point-virgule ni de mot-clé return)
 }
 
+/// Affiche un graphique comparant les performances des algorithmes de tri
 fn plot_graph(results: &Vec<(usize, u128, u128, u128, u128)>) -> Result<(), Box<dyn std::error::Error>> {
 let root = BitMapBackend::new("sorting_performance.png", (800, 600)).into_drawing_area();
 root.fill(&WHITE)?;

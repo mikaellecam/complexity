@@ -1,9 +1,9 @@
-// This file contains utility functions for the "Le compte est bon" game
+// Ce fichier contient des fonctions utilitaires pour le jeu
 use rand::Rng;
 use crate::types::*;
 
-/// Generates all possible pairs from a vector of integers
-/// Returns a vector of index pairs (i, j) where i < j
+/// Génère toutes les paires possibles à partir d'un vecteur d'entiers
+/// Retourne un vecteur de paires d'indices (i, j) où i < j
 pub fn generate_pairs(numbers: &[i32]) -> Vec<(usize, usize)> {
     let mut pairs = Vec::new();
     for i in 0..numbers.len() {
@@ -14,13 +14,13 @@ pub fn generate_pairs(numbers: &[i32]) -> Vec<(usize, usize)> {
     pairs
 }
 
-/// Applies an operation to two numbers if it's valid according to game rules
-/// Returns Some(result) if the operation is valid, None otherwise
+/// Applique une opération à deux nombres si elle est valide selon les règles du jeu
+/// Retourne Some(résultat) si l'opération est valide, None sinon
 pub fn apply_operation(a: i32, b: i32, op: Operation) -> Option<i32> {
     match op {
         Operation::Add => Some(a + b),
         Operation::Subtract => {
-            // Only allow subtraction if result is positive
+            // Autorise la soustraction seulement si le résultat est positif
             if a >= b {
                 Some(a - b)
             } else if b > a {
@@ -31,7 +31,7 @@ pub fn apply_operation(a: i32, b: i32, op: Operation) -> Option<i32> {
         },
         Operation::Multiply => Some(a * b),
         Operation::Divide => {
-            // Only allow division if result is an integer
+            // Autorise la division seulement si le résultat est un entier
             if b != 0 && a % b == 0 {
                 Some(a / b)
             } else if a != 0 && b % a == 0 {
@@ -43,32 +43,32 @@ pub fn apply_operation(a: i32, b: i32, op: Operation) -> Option<i32> {
     }
 }
 
-/// Generates a random set of 6 plaques according to game rules
+/// Génère un ensemble aléatoire de 6 plaques selon les règles du jeu
 pub fn random_plaques() -> Vec<i32> {
     let mut rng = rand::rng();
     let mut available = Vec::new();
 
-    // Add the 20 plaques numbered from 1 to 10 (2 of each)
+    // Ajoute les 20 plaques numérotées de 1 à 10 (2 de chaque)
     for i in 1..=10 {
         available.push(i);
         available.push(i);
     }
 
-    // Add the special plaques
+    // Ajoute les plaques spéciales
     available.extend_from_slice(&[25, 25, 50, 50, 75, 75, 100, 100]);
 
-    // Shuffle the available plaques
+    // Mélange les plaques disponibles
     for _ in 0..1000 {
         let i = rng.random_range(0..available.len());
         let j = rng.random_range(0..available.len());
         available.swap(i, j);
     }
 
-    // Take the first 6
+    // Prend les 6 premières
     available[0..6].to_vec()
 }
 
-/// Generates a random target between 100 and 999
+/// Génère une cible aléatoire entre 100 et 999
 pub fn random_target() -> i32 {
     let mut rng = rand::rng();
     rng.random_range(100..1000)

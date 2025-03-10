@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 disks = [1, 2, 5, 10, 15, 25]
-times = [0.00000241, 0.0000007, 0.00000017, 0.00002365, 0.00071741, 0.074409715]
+times = [0.00000241, 0.0000007, 0.00000017, 0.00002365, 0.00071741, 0.074409715] # Valeurs récupérées des résultats du programme Rust
 
 plt.figure(figsize=(10, 6))
 

@@ -14,32 +14,32 @@ fn main() {
 
     match args[1].as_str() {
         "1" => {
-            println!("Running Hanoi Tower program...");
+            println!("Programme pour les Tours d'Hanoï...");
             hanoi::main();
         },
         "2" => {
-            println!("Running Recursive Fibonacci program...");
+            println!("Programme pour Fibonacci...");
             fibonacci::main();
         },
         "3" => {
-            println!("Running Sieve of Eratosthenes program...");
+            println!("Programme pour le Crible d'Eratosthènes...");
             sieve::main();
         }
         "help" | "--help" | "-h" => {
             print_usage();
         },
         _ => {
-            println!("Invalid option: {}", args[1]);
+            println!("Option invalide: {}", args[1]);
             print_usage();
         }
     }
 }
 
 fn print_usage() {
-    println!("Usage: cargo run <option>");
+    println!("Utilisation: cargo run <option>");
     println!("Options:");
-    println!("  1     Run Hanoi Tower program");
-    println!("  2     Run Recursive Fibonacci program");
-    println!("  3     Run Sieve of Eratosthenes program");
-    println!("  help  Display this help message");
+    println!("  1     Exécuter le program des Tours d'Hanoï");
+    println!("  2     Exécuter le program de Fibonacci");
+    println!("  3     Exécuter le program du Crible d'Eratosthènes");
+    println!("  help  Affiche de ce message");
 }

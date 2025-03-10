@@ -1,6 +1,6 @@
-// This file defines the data structures used in the "Le compte est bon" game
+// Ce fichier définit les structures de données utilisées dans le jeu
 
-/// Represents the four basic arithmetic operations
+/// Représente les quatre opérations arithmétiques de base
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Operation {
     Add,
@@ -9,7 +9,7 @@ pub enum Operation {
     Divide,
 }
 
-/// Represents a step in the calculation
+/// Représente une étape dans le calcul
 #[derive(Debug, Clone)]
 pub struct CalculationStep {
     pub left: i32,
@@ -18,7 +18,7 @@ pub struct CalculationStep {
     pub result: i32,
 }
 
-/// Represents a complete solution path
+/// Représente un chemin de solution complet
 #[derive(Debug, Clone)]
 pub struct Solution {
     pub steps: Vec<CalculationStep>,
@@ -44,9 +44,9 @@ impl std::fmt::Display for CalculationStep {
 
 impl std::fmt::Display for Solution {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        writeln!(f, "Solution to reach {}:", self.target)?;
+        writeln!(f, "Solution pour atteindre {}:", self.target)?;
         for (i, step) in self.steps.iter().enumerate() {
-            writeln!(f, "Step {}: {}", i + 1, step)?;
+            writeln!(f, "Étape {}: {}", i + 1, step)?;
         }
         Ok(())
     }

@@ -8,14 +8,14 @@ pub(crate) fn main() {
 
     let test_values = [10, 20, 30, 40, 45];
 
-    // Test iterative solution
+    // Test de la solution itérative
     println!("\nIterative Solution:");
     for &n in &test_values {
         let duration = time_execution(fibonacci_iterative, n);
         println!("Time for n={}: {:?}", n, duration);
     }
 
-    // Test recursive solution (limited to smaller values due to exponential time complexity)
+    // Test de la solution récursive (on prend des valeurs plus petites, car l'algo est très peu efficace)
     println!("\nRecursive Solution:");
     for &n in &test_values {
         let duration = time_execution(fibonacci_recursive, n);
