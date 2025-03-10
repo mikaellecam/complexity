@@ -1,0 +1,11 @@
+.idea
+
+tp1/.idea
+tp2/.idea
+tp3/.idea
+
+tp1/target
+tp2/target
+tp3/target
+
+tp1/python/.venv/
