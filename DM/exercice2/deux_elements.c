@@ -1,81 +1,43 @@
-/**
- * Exercice 2. (Deux éléments parmi n)
- *
- * Ce programme recherche deux éléments distincts x et y d'un ensemble S
- * tel que |x - y| ≤ (1/(n-1)) * (max(S) - min(S))
- *
- * Partie (a): Implémentation d'un algorithme naïf en O(n²)
- * Partie (b): Implémentation d'un algorithme optimisé en O(n)
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <time.h>
 #include <math.h>
-
-// Structure pour représenter une paire d'éléments
-typedef struct {
-    int x;
-    int y;
-    double diff;
-} Pair;
-
-// Prototypes des fonctions
-int* generate_random_array(int n, int min_val, int max_val);
-void print_array(int arr[], int n);
-int find_min(int arr[], int n);
-int find_max(int arr[], int n);
-
-// Question (a): Algorithme naïf en O(n²)
-Pair naive_approach(int S[], int n);
-
-// Question (b): Algorithme optimisé en O(n)
-Pair optimized_approach(int S[], int n);
-
-// Fonction de comparaison pour qsort
-int compare_ints(const void* a, const void* b);
+#include "deux_elements.h"
 
 int main() {
     // Initialisation du générateur de nombres aléatoires
     srand(time(NULL));
 
     // Tests avec différentes tailles d'ensemble
-    int test_sizes[] = {10, 100, 1000, 10000, 100000};
-    int num_tests = sizeof(test_sizes) / sizeof(test_sizes[0]);
+    const int test_sizes[] = {10, 100, 1000, 10000, 100000};
+    const int num_tests = sizeof(test_sizes) / sizeof(test_sizes[0]);
 
     for (int t = 0; t < num_tests; t++) {
-        int n = test_sizes[t];
+        const int n = test_sizes[t];
         printf("\n=== Test avec n = %d ===\n", n);
 
-        // Génération d'un ensemble aléatoire
         int* S = generate_random_array(n, 0, 1000000);
 
         // Trouver min et max
-        int min_val = find_min(S, n);
-        int max_val = find_max(S, n);
-        double threshold = (double)(max_val - min_val) / (n - 1);
+        const int min_val = find_min(S, n);
+        const int max_val = find_max(S, n);
+        const double threshold = (double)(max_val - min_val) / (n - 1);
 
         printf("Min = %d, Max = %d\n", min_val, max_val);
         printf("Seuil = %f\n", threshold);
 
-        // Si l'ensemble est petit, l'afficher
-        if (n <= 20) {
-            printf("Ensemble S: ");
-            print_array(S, n);
-        }
-
         // (a) Approche naïve
-        clock_t start_naive = clock();
-        Pair result_naive = naive_approach(S, n);
-        clock_t end_naive = clock();
-        double time_naive = (double)(end_naive - start_naive) / CLOCKS_PER_SEC;
+        const clock_t start_naive = clock();
+        const Pair result_naive = naive_approach(S, n);
+        const clock_t end_naive = clock();
+        const double time_naive = (double)(end_naive - start_naive) / CLOCKS_PER_SEC;
 
         // (b) Approche optimisée
-        clock_t start_opt = clock();
-        Pair result_opt = optimized_approach(S, n);
-        clock_t end_opt = clock();
-        double time_opt = (double)(end_opt - start_opt) / CLOCKS_PER_SEC;
+        const clock_t start_opt = clock();
+        const Pair result_opt = optimized_approach(S, n);
+        const clock_t end_opt = clock();
+        const double time_opt = (double)(end_opt - start_opt) / CLOCKS_PER_SEC;
 
         // Afficher les résultats
         printf("\n(a) Approche naïve (O(n²)):\n");
@@ -95,8 +57,6 @@ int main() {
         } else {
             printf("   Aucune paire trouvée\n");
         }
-
-        // Libérer la mémoire
         free(S);
     }
 
@@ -106,8 +66,8 @@ int main() {
 /**
  * Génère un tableau d'entiers aléatoires distincts
  */
-int* generate_random_array(int n, int min_val, int max_val) {
-    int* arr = (int*)malloc(n * sizeof(int));
+int* generate_random_array(const int n, const int min_val, const int max_val) {
+    int* arr = malloc(n * sizeof(int));
 
     // Nous voulons des entiers distincts, donc on s'assure que la plage est assez grande
     if (max_val - min_val + 1 < n) {
@@ -116,7 +76,7 @@ int* generate_random_array(int n, int min_val, int max_val) {
     }
 
     // Utiliser un tableau pour suivre les nombres déjà utilisés
-    bool* used = (bool*)calloc(max_val - min_val + 1, sizeof(bool));
+    bool* used = calloc(max_val - min_val + 1, sizeof(bool));
 
     for (int i = 0; i < n; i++) {
         int num;
@@ -135,7 +95,7 @@ int* generate_random_array(int n, int min_val, int max_val) {
 /**
  * Affiche les éléments d'un tableau
  */
-void print_array(int arr[], int n) {
+void print_array(int arr[], const int n) {
     printf("[ ");
     for (int i = 0; i < n; i++) {
         printf("%d ", arr[i]);
@@ -146,7 +106,7 @@ void print_array(int arr[], int n) {
 /**
  * Trouve la valeur minimale dans un tableau
  */
-int find_min(int arr[], int n) {
+int find_min(const int arr[], const int n) {
     int min_val = arr[0];
     for (int i = 1; i < n; i++) {
         if (arr[i] < min_val) {
@@ -159,7 +119,7 @@ int find_min(int arr[], int n) {
 /**
  * Trouve la valeur maximale dans un tableau
  */
-int find_max(int arr[], int n) {
+int find_max(const int arr[], const int n) {
     int max_val = arr[0];
     for (int i = 1; i < n; i++) {
         if (arr[i] > max_val) {
@@ -173,23 +133,23 @@ int find_max(int arr[], int n) {
  * Fonction de comparaison pour qsort
  */
 int compare_ints(const void* a, const void* b) {
-    return (*(int*)a - *(int*)b);
+    return *(int*)a - *(int*)b;
 }
 
 /**
  * (a) Approche naïve en O(n²)
- * Parcours toutes les paires possibles d'éléments dans S
+ * Parcours toutes les paires possibles d'éléments dans S.
  */
-Pair naive_approach(int S[], int n) {
+Pair naive_approach(int S[], const int n) {
     Pair result = {0, 0, -1}; // Initialisation avec une différence négative (non valide)
-    int min_val = find_min(S, n);
-    int max_val = find_max(S, n);
-    double threshold = (double)(max_val - min_val) / (n - 1);
+    const int min_val = find_min(S, n);
+    const int max_val = find_max(S, n);
+    const double threshold = (double)(max_val - min_val) / (n - 1);
 
     // Parcourir toutes les paires possibles
     for (int i = 0; i < n - 1; i++) {
         for (int j = i + 1; j < n; j++) {
-            double diff = fabs((double)(S[i] - S[j]));
+            const int diff = abs(S[i] - S[j]);
 
             // Si c'est la première paire valide ou si la différence est plus petite
             if (diff <= threshold && (result.diff < 0 || diff < result.diff)) {
@@ -207,14 +167,14 @@ Pair naive_approach(int S[], int n) {
  * (b) Approche optimisée en O(n)
  * Utilise le principe des tiroirs (pigeonhole principle)
  */
-Pair optimized_approach(int S[], int n) {
+Pair optimized_approach(int S[], const int n) {
     Pair result = {0, 0, -1}; // Initialisation avec une différence négative (non valide)
 
     // Trouver min et max
-    int min_val = find_min(S, n);
-    int max_val = find_max(S, n);
-    double range = (double)(max_val - min_val);
-    double threshold = range / (n - 1);
+    const int min_val = find_min(S, n);
+    const int max_val = find_max(S, n);
+    const double range = max_val - min_val;
+    const double threshold = range / (n - 1);
 
     // Si tous les éléments sont identiques
     if (range == 0) {
@@ -225,7 +185,7 @@ Pair optimized_approach(int S[], int n) {
     }
 
     // Création d'une copie triée du tableau
-    int* sorted_S = (int*)malloc(n * sizeof(int));
+    int* sorted_S = malloc(n * sizeof(int));
     for (int i = 0; i < n; i++) {
         sorted_S[i] = S[i];
     }
@@ -233,7 +193,7 @@ Pair optimized_approach(int S[], int n) {
 
     // Recherche de deux éléments consécutifs avec une différence suffisamment petite
     for (int i = 0; i < n - 1; i++) {
-        double diff = (double)(sorted_S[i+1] - sorted_S[i]);
+        const double diff = sorted_S[i+1] - sorted_S[i];
         if (diff <= threshold && (result.diff < 0 || diff < result.diff)) {
             result.x = sorted_S[i];
             result.y = sorted_S[i+1];
